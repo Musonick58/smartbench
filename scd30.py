@@ -175,7 +175,7 @@ struct_rH = struct.pack('>BBBB', data[12], data[13], data[15], data[16])
 float_rH = struct.unpack('>f', struct_rH)
 
 #if float_co2 > 0.0:
-print("{\"co\" : %f," % float_co2)
+print("{\"co2\" : %f," % float_co2)
 
 print("\"temp\" : %f," % float_T)
 
