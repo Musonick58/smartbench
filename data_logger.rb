@@ -30,8 +30,7 @@ class DataLogger
         @owner            =  -1
         @led1             = nil
         @led2             = nil
-        @owner            = `ifconfig eth0 | grep ether`
-        @owner            = @ethernet.split(" ")[1]
+        @owner            = `ifconfig eth0 | grep ether`.strip.split(' ')[1]
         @benchname        = "smartbench_0"
         RPi::GPIO.set_numbering PIN_LAYOUT
         RPi::GPIO.setup PRESENCE_SENSOR, :as => :input
