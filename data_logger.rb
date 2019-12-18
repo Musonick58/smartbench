@@ -16,7 +16,7 @@ class DataLogger
     def error_logger(error)
       filename = Time.now.strftime("%Y_%m_%d_%H_%M")
       filename += ".log"
-      File.open("./log/smartbench/"+filename,"w"){|f|
+      File.open("./log/"+filename,"w"){|f|
         f.write(error.message + "\nRunning since #{@init_time.to_s}")
       }
     end
