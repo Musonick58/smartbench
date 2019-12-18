@@ -50,14 +50,13 @@ class DataLogger
     end
 
     def send_data(data)
-      #
       data["benchname"] = @benchname
       #data["co2"]
       #data["temp"]
       #data["hum"]
       data["led1"] = @led1
       data["led2"] = @led2
-      data["timestamp"] = Time.now
+      data["timestamp"] = Time.now.to_s
       pp data
       raise "aa"
       res = Net::HTTP.post_form(URI, data)
