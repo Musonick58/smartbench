@@ -29,6 +29,7 @@ class DataLogger
         @run              = true
         @led1             = nil
         @led2             = nil
+        @benchname        = "smartbench_0"
         RPi::GPIO.set_numbering PIN_LAYOUT
         RPi::GPIO.setup PRESENCE_SENSOR, :as => :input
     end
@@ -49,9 +50,16 @@ class DataLogger
     end
 
     def send_data(data)
+      #
+      data["benchname"] = @benchname
+      #data["co2"]
+      #data["temp"]
+      #data["hum"]
       data["led1"] = @led1
       data["led2"] = @led2
-      data["time_stamp"] = Time.now
+      data["timestamp"] = Time.now
+      pp data
+      raise "aa"
       res = Net::HTTP.post_form(URI, data)
       #res.basic_auth 'matt', 'secret'
       puts res.body
