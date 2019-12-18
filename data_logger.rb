@@ -36,7 +36,7 @@ class DataLogger
     def getSCD30
       begin
         data =  `python2 SCD30.py`
-        data = JSON.parse(a)
+        data = JSON.parse(data)
         pp data
       rescue => e
         #se fallisce per qualsiasi motivo loggo l'eccezione
@@ -83,3 +83,7 @@ class DataLogger
     end
     
 end
+
+
+scd30_logger = DataLogger.new()
+scd30_logger.main()
