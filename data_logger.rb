@@ -27,11 +27,15 @@ class DataLogger
         @init_time        = Time.now
         @current_day      = Time.now
         @run              = true
+        @owner            =  -1
         @led1             = nil
         @led2             = nil
+        @owner            = `ifconfig eth0 | grep ether`
+        @owner            = @ethernet.split(" ")[1]
         @benchname        = "smartbench_0"
         RPi::GPIO.set_numbering PIN_LAYOUT
         RPi::GPIO.setup PRESENCE_SENSOR, :as => :input
+
     end
 
     #chiedo a python2 di darmi i dati dell'interfaccia i2c
@@ -54,8 +58,9 @@ class DataLogger
       #data["co2"]
       #data["temp"]
       #data["hum"]
-      data["led1"] = @led1
-      data["led2"] = @led2
+      data["owner"] = @owner
+      data["led1"]  = @led1
+      data["led2"]  = @led2
       data["timestamp"] = Time.now.to_s
       pp data
       raise "aa"
