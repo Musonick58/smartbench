@@ -35,7 +35,7 @@ class DataLogger
     #chiedo a python2 di darmi i dati dell'interfaccia i2c
     def getSCD30
       begin
-        data =  `python2 SCD30.py`
+        data =  `python2 scd30.py`
         data = JSON.parse(data)
         pp data
       rescue => e
@@ -52,6 +52,7 @@ class DataLogger
       data["led2"] = @led2
       data["time_stamp"] = Time.now
       res = Net::HTTP.post_form(URI, data)
+      #res.basic_auth 'matt', 'secret'
       puts res.body
       #@led1 = res.body.led1
       #@led2 = res.body.led2
