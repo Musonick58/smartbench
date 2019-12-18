@@ -35,9 +35,9 @@ class DataLogger
     #chiedo a python2 di darmi i dati dell'interfaccia i2c
     def getSCD30
       begin
-        #data =  `python2 SCD30.py`
-        #data = JSON.parse(a)
-        data = {}
+        data =  `python2 SCD30.py`
+        data = JSON.parse(a)
+        pp data
       rescue => e
         #se fallisce per qualsiasi motivo loggo l'eccezione
         puts "#{e.message}"
