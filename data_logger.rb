@@ -1,5 +1,6 @@
 #!/bin/ruby
 require 'net/http'
+require 'json'
 require 'rpi_gpio'
 require 'byebug'
 class DataLogger
