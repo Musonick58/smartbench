@@ -62,7 +62,7 @@ class DataLogger
       data["led2"]  = @led2
       data["timestamp"] = Time.now.to_s
       pp data
-      raise "aa"
+      #raise "aa"
       res = Net::HTTP.post_form(URI, data)
       #res.basic_auth 'matt', 'secret'
       puts res.body
