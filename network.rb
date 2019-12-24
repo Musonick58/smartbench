@@ -4,14 +4,13 @@ require 'json'
 require 'byebug'
 
 class Network 
-  PIN_LAYOUT      = :board
   DATA_FOLDER     = "./sensors"
   PIR_SENSOR      = "PIR_SENSOR.txt"
   CO2_SENSOR      = "CO2_SENSOR.txt"
   TEMP_SENSOR     = "TEMP_SENSOR.txt"
   HUMI_SENSOR     = "HUMI_SENSOR.txt"
-  LED1            = nil
-  LED2            = nil
+  LED1            = "LED1.txt"
+  LED2            = "LED2.txt"
   SLEEP_TIME      = 5 #(60*5) #5 minuti
   URI             = URI("https://sviluppo.platformdevelopment.it/software-venitech/mvc/index.php/data_manager/register_data")
 
@@ -20,8 +19,11 @@ class Network
     @init_time        = Time.now
     @current_day      = Time.now
     @run              = true
+    `mkdir -p ./log/` rescue nil
+    `touch #{DATA_FOLDER}/#{LED1}` rescue nil
+    `touch #{DATA_FOLDER}/#{LED2}` rescue nil
   end
-  
+
   #ERROR LOGGER
   def error_logger(error)
     filename = Time.now.strftime("%Y_%m_%d_%H_%M")
@@ -48,6 +50,7 @@ class Network
     data["timestamp"] = Time.now.to_s
    
     pp data
+    #raise "NETWORK"
     #raise "aa"
     #res = Net::HTTP.post_form(URI, data)
     #res.basic_auth 'matt', 'secret'

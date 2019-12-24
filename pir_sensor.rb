@@ -6,7 +6,7 @@ class PirSensor
   PIN_LAYOUT      = :board
   PRESENCE_SENSOR = 40
   FILENAME        = "PIR_SENSOR.txt"
-  SLEEP_TIME      = 1 
+  SLEEP_TIME      = 0.25 
 
   #ERROR LOGGER
   def error_logger(error)
@@ -25,7 +25,7 @@ class PirSensor
       @current_day      = Time.now
       @run              = true
       `mkdir -p ./sensors/` rescue nil
-      `mkdir -p ./log/` rescue nilg
+      `mkdir -p ./log/` rescue nil
       `touch ./sensors/#{FILENAME}`   rescue nil
       RPi::GPIO.set_numbering PIN_LAYOUT
       RPi::GPIO.setup PRESENCE_SENSOR, :as => :input

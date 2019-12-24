@@ -4,13 +4,12 @@ require 'json'
 require 'rpi_gpio'
 require 'byebug'
 
-class scd30
+class Scd30
     #COSTANTI
     DATA_FOLDER     = "./sensors"
     CO2_SENSOR      = "CO2_SENSOR.txt"
     TEMP_SENSOR     = "TEMP_SENSOR.txt"
     HUMI_SENSOR     = "HUMI_SENSOR.txt"
-    URI             = URI("https://sviluppo.platformdevelopment.it/software-venitech/mvc/index.php/data_manager/register_data")
     SLEEP_TIME      = 2
 
     #ERROR LOGGER
@@ -28,6 +27,10 @@ class scd30
       @init_time        = Time.now
       @current_day      = Time.now
       @run              = true
+      `mkdir -p ./log/` rescue nil
+      `touch ./sensors/#{CO2_SENSOR }`   rescue nil
+      `touch ./sensors/#{TEMP_SENSOR}`   rescue nil
+      `touch ./sensors/#{HUMI_SENSOR}`   rescue nil
     end
 
     #chiedo a python2 di darmi i dati dell'interfaccia i2c
@@ -71,11 +74,11 @@ class scd30
           sleep(SLEEP_TIME)
         end
       rescue Exception => e
+        #se fallisce scrivo nel file l'eccezione
         error_logger(e)
-        raise e
       end
     end    
 end
 
-scd30_logger = DataLogger.new()
+scd30_logger = Scd30.new()
 scd30_logger.main()
