@@ -72,17 +72,17 @@ class Network
   end
 
   def main
-    begin
+    #begin
       while @run do 
 
         send_data()
 
         sleep(SLEEP_TIME)
       end
-    rescue Exception => e
+    #rescue Exception => e
       error_logger(e)
       raise e
-    end
+    #end
   end
 end
 
