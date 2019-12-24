@@ -72,5 +72,10 @@ class Network
       raise e
     end
   end
-
 end
+
+
+
+
+network = Network.new 
+network.main()
