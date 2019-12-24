@@ -83,6 +83,7 @@ class Network
       end
     rescue Exception => e
       error_logger(e)
+      sleep(SLEEP_TIME)
     end
   end
 end
