@@ -19,6 +19,10 @@ class Network
     @init_time        = Time.now
     @current_day      = Time.now
     @run              = true
+    @led1             = nil
+    @led2             = nil
+    @owner            = `ifconfig eth0 | grep ether`.strip.split(' ')[1]
+    @benchname        = @owner
     `mkdir -p ./log/` rescue nil
     `touch #{DATA_FOLDER}/#{LED1}` rescue nil
     `touch #{DATA_FOLDER}/#{LED2}` rescue nil
@@ -33,30 +37,38 @@ class Network
     }
   end
 
-  def read_file(filename)
+  def read_file(filename,key)
     sensor = File.open("#{DATA_FOLDER}/#{filename}").read()
     temp = {}
-    temp[filename.gsub(".txt","")] = sensor.split("|")[0]
+    temp[key] = sensor.split("|")[0]
     return temp
   end
 
   def send_data
     data = {}
-    pir  = read_file(PIR_SENSOR )
-    co2  = read_file(CO2_SENSOR )
-    temp = read_file(TEMP_SENSOR)
-    humi = read_file(HUMI_SENSOR)
+    pir  = read_file(PIR_SENSOR,  "presence")
+    co2  = read_file(CO2_SENSOR,  "co2"     )
+    temp = read_file(TEMP_SENSOR, "temp"    )
+    humi = read_file(HUMI_SENSOR, "hum"     )
     data = data.merge(pir).merge(co2).merge(temp).merge(humi)
+    data["benchname"] = @benchname
+    #data["co2"]
+    #data["temp"]
+    #data["hum"]
+    data["owner"] = @owner
+    data["led1"]  = @led1
+    data["led2"]  = @led2
     data["timestamp"] = Time.now.to_s
    
-    pp data
+    #pp data
     #raise "NETWORK"
     #raise "aa"
-    #res = Net::HTTP.post_form(URI, data)
+    res = Net::HTTP.post_form(URI, data)
     #res.basic_auth 'matt', 'secret'
     #puts res.body
     #@led1 = res.body.led1
     #@led2 = res.body.led2
+    #@benchname = res.body.benchname
   end
 
   def main
