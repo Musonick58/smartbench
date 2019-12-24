@@ -21,7 +21,7 @@ class Network
     @run              = true
     @led1             = nil
     @led2             = nil
-    @owner            = `/sbin/ifconfig eth0 | grep ether`.strip.split(' ')[1]
+    @owner            = `/sbin/ifconfig eth0 | grep ether`.strip.split(' ')[1] 
     @benchname        = @owner
     `mkdir -p /home/pi/smartbench/log/` rescue nil
     `touch #{DATA_FOLDER}/#{LED1}` rescue nil
