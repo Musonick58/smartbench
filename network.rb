@@ -63,9 +63,10 @@ class Network
     #pp data
     #raise "NETWORK"
     #raise "aa"
+    #pp data
     res = Net::HTTP.post_form(URI, data)
     #res.basic_auth 'matt', 'secret'
-    #puts res.body
+    puts res.body
     #@led1 = res.body.led1
     #@led2 = res.body.led2
     #@benchname = res.body.benchname
