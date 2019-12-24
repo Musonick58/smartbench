@@ -32,8 +32,7 @@ class PirSensor
   end
 
   def write_file(data)
-    write_date = Time.now.strftime("%Y_%m_%d_%H_%M")
-
+    write_date = Time.now.to_s
     File.open("/home/pi/smartbench/sensors/#{FILENAME}","w"){|f|
       f.write("#{data}|#{write_date}")
     }

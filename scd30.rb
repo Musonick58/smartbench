@@ -48,7 +48,7 @@ class Scd30
     end
 
     def write_file(filename,data)
-      write_date = Time.now.strftime("%Y_%m_%d_%H_%M")
+      write_date = Time.now.to_s
       File.open("#{DATA_FOLDER}/#{filename}","w"){|f|
         f.write("#{data}|#{write_date}")
       }
