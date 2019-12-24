@@ -63,7 +63,6 @@ class Scd30
           #valori co2, temperatura, umidità
           data = self.getSCD30
           pp data
-          debugger
           write_file(CO2_SENSOR,data["co2"])
           write_file(TEMP_SENSOR,data["temp"])
           write_file(HUMI_SENSOR,data["humi"])
