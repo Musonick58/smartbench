@@ -25,8 +25,8 @@ class PirSensor
       @current_day      = Time.now
       @run              = true
       `mkdir -p ./sensors/` rescue nil
-      `mkdir -p ./log/` rescue nil
-      `touch #{FILENAME}`   rescue nil
+      `mkdir -p ./log/` rescue nilg
+      `touch ./sensors/#{FILENAME}`   rescue nil
       RPi::GPIO.set_numbering PIN_LAYOUT
       RPi::GPIO.setup PRESENCE_SENSOR, :as => :input
   end
