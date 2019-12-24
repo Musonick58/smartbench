@@ -13,7 +13,7 @@ class PirSensor
     filename  = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
     filename += FILENAME+filename
     filename += ".log"
-    File.open("./log/"+filename,"w"){|f|
+    File.open("/home/pi/smartbench/log/"+filename,"w"){|f|
       f.write(error.message + "\nRunning since #{@init_time.to_s}")
     }
   end
@@ -24,9 +24,9 @@ class PirSensor
       @init_time        = Time.now
       @current_day      = Time.now
       @run              = true
-      `mkdir -p ./sensors/` rescue nil
-      `mkdir -p ./log/` rescue nil
-      `touch ./sensors/#{FILENAME}`   rescue nil
+      `mkdir -p /home/pi/smartbench/sensors/` rescue nil
+      `mkdir -p /home/pi/smartbench/log/` rescue nil
+      `touch /home/pi/smartbench/sensors/#{FILENAME}`   rescue nil
       RPi::GPIO.set_numbering PIN_LAYOUT
       RPi::GPIO.setup PRESENCE_SENSOR, :as => :input
   end
@@ -34,7 +34,7 @@ class PirSensor
   def write_file(data)
     write_date = Time.now.strftime("%Y_%m_%d_%H_%M")
 
-    File.open("./sensors/#{FILENAME}","w"){|f|
+    File.open("/home/pi/smartbench/sensors/#{FILENAME}","w"){|f|
       f.write("#{data}|#{write_date}")
     }
   end
