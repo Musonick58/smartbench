@@ -6,7 +6,7 @@ require 'byebug'
 
 class Scd30
     #COSTANTI
-    DATA_FOLDER     = "./sensors"
+    DATA_FOLDER     = "/home/pi/smartbench/sensors"
     CO2_SENSOR      = "CO2_SENSOR.txt"
     TEMP_SENSOR     = "TEMP_SENSOR.txt"
     HUMI_SENSOR     = "HUMI_SENSOR.txt"
@@ -17,7 +17,7 @@ class Scd30
       filename  = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
       filename += "SCD30_"+filename
       filename += ".log"
-      File.open("./log/"+filename,"w"){|f|
+      File.open("/home/pi/smartbench/log/"+filename,"w"){|f|
         f.write(error.message + "\nRunning since #{@init_time.to_s}")
       }
     end
@@ -28,10 +28,10 @@ class Scd30
       @current_day      = Time.now
       @run              = true
       `sudo pigpiod` rescue nil
-      `mkdir -p ./log/` rescue nil
-      `touch ./sensors/#{CO2_SENSOR }`   rescue nil
-      `touch ./sensors/#{TEMP_SENSOR}`   rescue nil
-      `touch ./sensors/#{HUMI_SENSOR}`   rescue nil
+      `mkdir -p /home/pi/smartbench/log/`     rescue nil
+      `touch #{DATA_FOLDER}/#{CO2_SENSOR }`   rescue nil
+      `touch #{DATA_FOLDER}/#{TEMP_SENSOR}`  rescue nil
+      `touch #{DATA_FOLDER}/#{HUMI_SENSOR}`   rescue nil
     end
 
     #chiedo a python2 di darmi i dati dell'interfaccia i2c
