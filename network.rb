@@ -21,7 +21,7 @@ class Network
     @run              = true
     @led1             = nil
     @led2             = nil
-    @owner            = `ifconfig eth0 | grep ether`.strip.split(' ')[1]
+    @owner            = `/sbin/ifconfig eth0 | grep ether`.strip.split(' ')[1]
     @benchname        = @owner
     `mkdir -p /home/pi/smartbench/log/` rescue nil
     `touch #{DATA_FOLDER}/#{LED1}` rescue nil
@@ -30,7 +30,7 @@ class Network
 
   #ERROR LOGGER
   def error_logger(error)
-    filename = Time.now.strftime("%Y_%m_%d_%H_%M")
+    filename = "network_error"
     filename += ".log"
     File.open("/home/pi/smartbench/log/"+filename,"w"){|f|
       f.write(error.message + "\nRunning since #{@init_time.to_s}")
@@ -74,17 +74,16 @@ class Network
   end
 
   def main
-    #begin
+    begin
       while @run do 
 
         send_data()
 
         sleep(SLEEP_TIME)
       end
-    #rescue Exception => e
+    rescue Exception => e
       error_logger(e)
-      raise e
-    #end
+    end
   end
 end
 
