@@ -1,4 +1,4 @@
-#!/bin/ruby
+#!/usr/bin/ruby
 require 'rpi_gpio'
 
 class PirSensor

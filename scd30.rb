@@ -1,4 +1,4 @@
-#!/bin/ruby
+#!/usr/bin/ruby
 require 'net/http'
 require 'json'
 require 'rpi_gpio'

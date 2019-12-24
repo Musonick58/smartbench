@@ -1,4 +1,4 @@
-#!/bin/ruby
+#!/usr/bin/ruby
 require 'net/http'
 require 'json'
 require 'byebug'
@@ -41,6 +41,7 @@ class Network
     sensor = File.open("#{DATA_FOLDER}/#{filename}").read()
     temp = {}
     temp[key] = sensor.split("|")[0]
+    temp["#{key}_timestamp"] = sensor.split("|")[1]
     return temp
   end
 
