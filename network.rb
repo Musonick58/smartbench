@@ -11,7 +11,7 @@ class Network
   HUMI_SENSOR     = "HUMI_SENSOR.txt"
   LED1            = "LED1.txt"
   LED2            = "LED2.txt"
-  SLEEP_TIME      = 5 #(60*5) #5 minuti
+  SLEEP_TIME      = (60*5) #5 minuti
   URI             = URI("https://sviluppo.platformdevelopment.it/software-venitech/mvc/index.php/data_manager/register_data")
 
   #inzilizzatore della classe 
