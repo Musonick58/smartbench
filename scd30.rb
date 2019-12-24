@@ -3,18 +3,20 @@ require 'net/http'
 require 'json'
 require 'rpi_gpio'
 require 'byebug'
-class DataLogger
+
+class scd30
     #COSTANTI
-    PIN_LAYOUT      = :board
-    PRESENCE_SENSOR = 40
-    LED1            = nil
-    LED2            = nil
-    SLEEP_TIME      = 5 #(60*5) #5 minuti
+    DATA_FOLDER     = "./sensors"
+    CO2_SENSOR      = "CO2_SENSOR.txt"
+    TEMP_SENSOR     = "TEMP_SENSOR.txt"
+    HUMI_SENSOR     = "HUMI_SENSOR.txt"
     URI             = URI("https://sviluppo.platformdevelopment.it/software-venitech/mvc/index.php/data_manager/register_data")
+    SLEEP_TIME      = 2
 
     #ERROR LOGGER
     def error_logger(error)
-      filename = Time.now.strftime("%Y_%m_%d_%H_%M")
+      filename  = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
+      filename += FILENAME+filename
       filename += ".log"
       File.open("./log/"+filename,"w"){|f|
         f.write(error.message + "\nRunning since #{@init_time.to_s}")
@@ -23,18 +25,9 @@ class DataLogger
 
     #inzilizzatore della classe 
     def initialize
-        @presence_counter = 0.0
-        @init_time        = Time.now
-        @current_day      = Time.now
-        @run              = true
-        @owner            =  -1
-        @led1             = nil
-        @led2             = nil
-        @owner            = `ifconfig eth0 | grep ether`.strip.split(' ')[1]
-        @benchname        = "smartbench_0"
-        RPi::GPIO.set_numbering PIN_LAYOUT
-        RPi::GPIO.setup PRESENCE_SENSOR, :as => :input
-
+      @init_time        = Time.now
+      @current_day      = Time.now
+      @run              = true
     end
 
     #chiedo a python2 di darmi i dati dell'interfaccia i2c
@@ -52,22 +45,11 @@ class DataLogger
       return data
     end
 
-    def send_data(data)
-      data["benchname"] = @benchname
-      #data["co2"]
-      #data["temp"]
-      #data["hum"]
-      data["owner"] = @owner
-      data["led1"]  = @led1
-      data["led2"]  = @led2
-      data["timestamp"] = Time.now.to_s
-      pp data
-      #raise "aa"
-      res = Net::HTTP.post_form(URI, data)
-      #res.basic_auth 'matt', 'secret'
-      puts res.body
-      #@led1 = res.body.led1
-      #@led2 = res.body.led2
+    def write_file(filename,data)
+      write_date = Time.now.strftime("%Y_%m_%d_%H_%M")
+      File.open("#{DATA_FOLDER}#{filename}","w"){|f|
+        f.write("#{data}|#{write_date}")
+      }
     end
 
     def main
@@ -82,10 +64,9 @@ class DataLogger
 
           #valori co2, temperatura, umidità
           data = self.getSCD30
-
-          data["presence"] = @presence_counter
-
-          send_data(data)
+          write_file(CO2_SENSOR,data["co2"])
+          write_file(CO2_SENSOR,data["temp"])
+          write_file(CO2_SENSOR,data["humi"])
 
           sleep(SLEEP_TIME)
         end
@@ -93,10 +74,8 @@ class DataLogger
         error_logger(e)
         raise e
       end
-    end
-    
+    end    
 end
-
 
 scd30_logger = DataLogger.new()
 scd30_logger.main()

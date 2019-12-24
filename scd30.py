@@ -180,7 +180,7 @@ print("{\"co2\" : %f," % float_co2)
 print("\"temp\" : %f," % float_T)
 
 #if float_rH > 0.0:
-print("\"hum\" : %f }" % float_rH)
+print("\"humi\" : %f }" % float_rH)
 
 pi.i2c_close(h)
 
