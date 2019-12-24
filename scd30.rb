@@ -58,13 +58,7 @@ class Scd30
     def main
       begin
         while @run do 
-          if(Time.now.day > @current_day.day )
-            @presence_counter = 0.0
-            @current_day = Time.now
-          end
-          #contatore delle presenze
-          @presence_counter += 1.0 if RPi::GPIO.high? PRESENCE_SENSOR
-
+          
           #valori co2, temperatura, umidità
           data = self.getSCD30
           write_file(CO2_SENSOR,data["co2"])
@@ -76,6 +70,7 @@ class Scd30
       rescue Exception => e
         #se fallisce scrivo nel file l'eccezione
         error_logger(e)
+        raise e
       end
     end    
 end
