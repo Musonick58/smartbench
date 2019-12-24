@@ -6,7 +6,7 @@ class PirSensor
   PIN_LAYOUT      = :board
   PRESENCE_SENSOR = 40
   FILENAME        = "PIR_SENSOR.txt"
-  SLEEP_TIME      = 0.25 
+  SLEEP_TIME      = 0.75 
 
   #ERROR LOGGER
   def error_logger(error)
