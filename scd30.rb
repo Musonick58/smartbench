@@ -15,7 +15,7 @@ class Scd30
     #ERROR LOGGER
     def error_logger(error)
       filename  = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
-      filename += FILENAME+filename
+      filename += "SCD30_"+filename
       filename += ".log"
       File.open("./log/"+filename,"w"){|f|
         f.write(error.message + "\nRunning since #{@init_time.to_s}")
