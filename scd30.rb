@@ -39,7 +39,7 @@ class Scd30
       begin
         data =  `python2 scd30.py`
         data = JSON.parse(data)
-        pp data
+        #pp data
       rescue => e
         #se fallisce per qualsiasi motivo loggo l'eccezione
         puts "#{e.message}"
@@ -63,6 +63,7 @@ class Scd30
           #valori co2, temperatura, umidità
           data = self.getSCD30
           pp data
+          debugger
           write_file(CO2_SENSOR,data["co2"])
           write_file(TEMP_SENSOR,data["temp"])
           write_file(HUMI_SENSOR,data["humi"])
