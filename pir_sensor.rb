@@ -100,5 +100,5 @@ class PirSensor
 end
 
 
-scd30_logger = DataLogger.new()
+scd30_logger = PirSensor.new()
 scd30_logger.main()
