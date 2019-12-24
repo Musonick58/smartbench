@@ -63,7 +63,7 @@ class Scd30
           pp data
           write_file(CO2_SENSOR, data["co2"])
           write_file(TEMP_SENSOR,data["temp"])
-          write_file(HUMI_SENSOR,data["hum"])
+          write_file(HUMI_SENSOR,data["humi"])
 
           sleep(SLEEP_TIME)
         end
