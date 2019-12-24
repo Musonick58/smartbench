@@ -27,7 +27,7 @@ class Scd30
       @init_time        = Time.now
       @current_day      = Time.now
       @run              = true
-      `sudo pigpiod`
+      `sudo pigpiod` rescue nil
       `mkdir -p ./log/` rescue nil
       `touch ./sensors/#{CO2_SENSOR }`   rescue nil
       `touch ./sensors/#{TEMP_SENSOR}`   rescue nil
@@ -62,9 +62,10 @@ class Scd30
           
           #valori co2, temperatura, umidità
           data = self.getSCD30
+          pp data
           write_file(CO2_SENSOR,data["co2"])
-          write_file(CO2_SENSOR,data["temp"])
-          write_file(CO2_SENSOR,data["humi"])
+          write_file(TEMP_SENSOR,data["temp"])
+          write_file(HUMI_SENSOR,data["humi"])
 
           sleep(SLEEP_TIME)
         end
