@@ -29,9 +29,7 @@ class Scd30
       @run              = true
       `sudo pigpiod` rescue nil
       `mkdir -p /home/pi/smartbench/log/`     rescue nil
-      `touch #{DATA_FOLDER}/#{CO2_SENSOR }`   rescue nil
-      `touch #{DATA_FOLDER}/#{TEMP_SENSOR}`  rescue nil
-      `touch #{DATA_FOLDER}/#{HUMI_SENSOR}`   rescue nil
+      `mkdir -p #{DATA_FOLDER}`               rescue nil
     end
 
     #chiedo a python2 di darmi i dati dell'interfaccia i2c
@@ -63,9 +61,9 @@ class Scd30
           #valori co2, temperatura, umidità
           data = self.getSCD30
           pp data
-          write_file(CO2_SENSOR,data["co2"])
+          write_file(CO2_SENSOR, data["co2"])
           write_file(TEMP_SENSOR,data["temp"])
-          write_file(HUMI_SENSOR,data["humi"])
+          write_file(HUMI_SENSOR,data["hum"])
 
           sleep(SLEEP_TIME)
         end
