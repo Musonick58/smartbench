@@ -27,6 +27,7 @@ class Scd30
       @init_time        = Time.now
       @current_day      = Time.now
       @run              = true
+      `sudo pigpiod`
       `mkdir -p ./log/` rescue nil
       `touch ./sensors/#{CO2_SENSOR }`   rescue nil
       `touch ./sensors/#{TEMP_SENSOR}`   rescue nil
