@@ -35,7 +35,7 @@ class Scd30
     #chiedo a python2 di darmi i dati dell'interfaccia i2c
     def getSCD30
       begin
-        data =  `python2 scd30.py`
+        data =  `python2 /home/pi/smartbench/scd30.py`
         data = JSON.parse(data)
         #pp data
       rescue => e
