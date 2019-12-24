@@ -4,7 +4,7 @@ require 'json'
 require 'byebug'
 
 class Network 
-  DATA_FOLDER     = "./sensors"
+  DATA_FOLDER     = "/home/pi/smartbench/sensors"
   PIR_SENSOR      = "PIR_SENSOR.txt"
   CO2_SENSOR      = "CO2_SENSOR.txt"
   TEMP_SENSOR     = "TEMP_SENSOR.txt"
@@ -23,7 +23,7 @@ class Network
     @led2             = nil
     @owner            = `ifconfig eth0 | grep ether`.strip.split(' ')[1]
     @benchname        = @owner
-    `mkdir -p ./log/` rescue nil
+    `mkdir -p /home/pi/smartbench/log/` rescue nil
     `touch #{DATA_FOLDER}/#{LED1}` rescue nil
     `touch #{DATA_FOLDER}/#{LED2}` rescue nil
   end
@@ -32,7 +32,7 @@ class Network
   def error_logger(error)
     filename = Time.now.strftime("%Y_%m_%d_%H_%M")
     filename += ".log"
-    File.open("./log/"+filename,"w"){|f|
+    File.open("/home/pi/smartbench/log/"+filename,"w"){|f|
       f.write(error.message + "\nRunning since #{@init_time.to_s}")
     }
   end
@@ -87,8 +87,6 @@ class Network
     #end
   end
 end
-
-
 
 
 network = Network.new 
